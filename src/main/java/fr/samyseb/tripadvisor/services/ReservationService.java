@@ -1,8 +1,8 @@
 package fr.samyseb.tripadvisor.services;
 
-import fr.samyseb.tripadvisor.pojos.Client;
+import fr.samyseb.tripadvisor.entities.Client;
+import fr.samyseb.tripadvisor.entities.Reservation;
 import fr.samyseb.tripadvisor.pojos.Offre;
-import fr.samyseb.tripadvisor.pojos.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

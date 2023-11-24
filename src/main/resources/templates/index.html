@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des agences et hôtels</title>
+    <!-- Latest compiled and minified CSS -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Liste des hôtels</h1>
+            <table class="table center-table">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Étoiles</th>
+                    <th>Adresse</th>
+                    <th>Ville</th>
+                    <th>Pays</th>
+                    <th>Visiter l'hôtel</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="hotel : ${hotels}">
+                    <td th:text="${hotel.nom}"></td>
+                    <td th:text="${hotel.etoiles}"></td>
+                    <td th:text="${hotel.adresse.numero + ' ' + hotel.adresse.rue}"></td>
+                    <td th:text="${hotel.adresse.ville}"></td>
+                    <td th:text="${hotel.adresse.pays}"></td>
+                    <td><a target="_blank" th:href="@{${hotel.url}}">Lien vers l'hôtel</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h1>Liste des agences</h1>
+            <table class="table center-table">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Lien vers l'agence</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="agence : ${agences}">
+                    <td th:text="${agence.nom}"></td>
+                    <td><a target="_blank" th:href="@{${agence.url}}">Visiter l'agence</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="/recherche">Effectuer une recherche afin de réserver une
+                chambre
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

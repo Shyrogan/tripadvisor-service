@@ -1,7 +1,7 @@
-package fr.samyseb.tripadvisor.controllers;
+package fr.samyseb.tripadvisor.controllers.rest;
 
+import fr.samyseb.tripadvisor.entities.Reservation;
 import fr.samyseb.tripadvisor.pojos.Offre;
-import fr.samyseb.tripadvisor.pojos.Reservation;
 import fr.samyseb.tripadvisor.services.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

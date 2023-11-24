@@ -1,34 +1,39 @@
 package fr.samyseb.tripadvisor.controllers;
 
-import fr.samyseb.tripadvisor.entities.Agence;
-import fr.samyseb.tripadvisor.entities.Hotel;
 import fr.samyseb.tripadvisor.repositories.AgenceRepository;
 import fr.samyseb.tripadvisor.repositories.HotelRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@RestController("/api")
+@Controller("/")
 @RequiredArgsConstructor
 public class TripadvisorController {
 
-    private final AgenceRepository agenceRepository;
     private final HotelRepository hotelRepository;
+    private final AgenceRepository agenceRepository;
 
-    @GetMapping("/hotels")
-    public List<Hotel> getAllHotels() {
-        return StreamSupport.stream(hotelRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("hotels", StreamSupport
+                .stream(hotelRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList()));
+
+
+        model.addAttribute("agences", StreamSupport
+                .stream(agenceRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList()));
+
+        return "index";
     }
 
-    @GetMapping("/agences")
-    public List<Agence> getAllAgences() {
-        return StreamSupport.stream(agenceRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    @GetMapping("/recherche")
+    public String recherche(Model model) {
+        return "recherche";
     }
 
 }

@@ -2,6 +2,7 @@ package fr.samyseb.tripadvisor.pojos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.samyseb.tripadvisor.entities.Agence;
+import fr.samyseb.tripadvisor.entities.Chambre;
 import fr.samyseb.tripadvisor.entities.Hotel;
 import lombok.*;
 

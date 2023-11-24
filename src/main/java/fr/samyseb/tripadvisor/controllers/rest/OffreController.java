@@ -1,4 +1,4 @@
-package fr.samyseb.tripadvisor.controllers;
+package fr.samyseb.tripadvisor.controllers.rest;
 
 import fr.samyseb.tripadvisor.pojos.Offre;
 import fr.samyseb.tripadvisor.services.OffreService;
@@ -13,7 +13,7 @@ public class OffreController {
 
     private final OffreService offreService;
 
-    @GetMapping("/")
+    @GetMapping("/api/offre")
     public void listOffres(@RequestBody Offre offre) {
         offreService.create(offre.debut(), offre.fin());
     }
