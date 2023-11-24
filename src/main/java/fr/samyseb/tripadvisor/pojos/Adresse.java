@@ -1,4 +1,4 @@
-package fr.samyseb.hotelservice.pojos;
+package fr.samyseb.tripadvisor.pojos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.GeneratedValue;

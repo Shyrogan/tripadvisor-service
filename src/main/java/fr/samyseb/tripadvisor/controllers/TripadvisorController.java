@@ -1,9 +1,9 @@
-package fr.samyseb.hotelservice.controllers;
+package fr.samyseb.tripadvisor.controllers;
 
-import fr.samyseb.hotelservice.entities.Agence;
-import fr.samyseb.hotelservice.entities.Hotel;
-import fr.samyseb.hotelservice.repositories.AgenceRepository;
-import fr.samyseb.hotelservice.repositories.HotelRepository;
+import fr.samyseb.tripadvisor.entities.Agence;
+import fr.samyseb.tripadvisor.entities.Hotel;
+import fr.samyseb.tripadvisor.repositories.AgenceRepository;
+import fr.samyseb.tripadvisor.repositories.HotelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

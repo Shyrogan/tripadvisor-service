@@ -1,6 +1,6 @@
-package fr.samyseb.hotelservice.repositories;
+package fr.samyseb.tripadvisor.repositories;
 
-import fr.samyseb.hotelservice.entities.Agence;
+import fr.samyseb.tripadvisor.entities.Agence;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

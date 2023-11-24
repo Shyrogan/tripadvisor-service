@@ -1,7 +1,7 @@
-package fr.samyseb.hotelservice.services;
+package fr.samyseb.tripadvisor.services;
 
-import fr.samyseb.hotelservice.pojos.Offre;
-import fr.samyseb.hotelservice.repositories.AgenceRepository;
+import fr.samyseb.tripadvisor.pojos.Offre;
+import fr.samyseb.tripadvisor.repositories.AgenceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package fr.samyseb.hotelservice.entities;
+package fr.samyseb.tripadvisor.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;

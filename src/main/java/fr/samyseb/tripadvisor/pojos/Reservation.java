@@ -1,8 +1,8 @@
-package fr.samyseb.hotelservice.pojos;
+package fr.samyseb.tripadvisor.pojos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import fr.samyseb.hotelservice.entities.Agence;
-import fr.samyseb.hotelservice.entities.Hotel;
+import fr.samyseb.tripadvisor.entities.Agence;
+import fr.samyseb.tripadvisor.entities.Hotel;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
