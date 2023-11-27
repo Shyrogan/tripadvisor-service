@@ -6,18 +6,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@Controller("/")
+@Controller
+@RequestMapping("/")
 @RequiredArgsConstructor
 public class TripadvisorController {
 
     private final HotelRepository hotelRepository;
     private final AgenceRepository agenceRepository;
 
-    @GetMapping("/")
+    @GetMapping
     public String index(Model model) {
         model.addAttribute("hotels", StreamSupport
                 .stream(hotelRepository.findAll().spliterator(), false)

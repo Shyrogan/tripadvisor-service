@@ -3,6 +3,7 @@ package fr.samyseb.tripadvisor.services;
 import fr.samyseb.tripadvisor.entities.Client;
 import fr.samyseb.tripadvisor.entities.Reservation;
 import fr.samyseb.tripadvisor.pojos.Offre;
+import fr.samyseb.tripadvisor.pojos.ReservationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,10 @@ public class ReservationService {
                 .post()
                 .uri(format("%s/reservation", offre.agence().url()))
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(Reservation.builder()
-                        .hotel(offre.hotel())
-                        .chambre(offre.chambre())
-                        .debut(offre.debut())
-                        .fin(offre.fin())
+                .body(Mono.just(ReservationRequest.builder()
+                        .offre(offre)
                         .client(fillableClient)
-                        .build()), Reservation.class)
+                        .build()), ReservationRequest.class)
                 .retrieve()
                 .bodyToMono(Reservation.class)
                 .block();

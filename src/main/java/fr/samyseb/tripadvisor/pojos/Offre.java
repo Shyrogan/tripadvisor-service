@@ -15,8 +15,9 @@ import java.time.LocalDate;
 @Getter(onMethod = @__(@JsonProperty))
 public class Offre {
 
-    private Hotel hotel;
     private Agence agence;
+    private Hotel hotel;
+    private float prixSejour;
     private Chambre chambre;
     private LocalDate debut;
     private LocalDate fin;

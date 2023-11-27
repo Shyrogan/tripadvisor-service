@@ -6,15 +6,17 @@ import fr.samyseb.tripadvisor.repositories.AgenceRepository;
 import fr.samyseb.tripadvisor.repositories.HotelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@RestController("/api")
+@RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
-public class TripadvisorController {
+public class RootController {
 
     private final AgenceRepository agenceRepository;
     private final HotelRepository hotelRepository;

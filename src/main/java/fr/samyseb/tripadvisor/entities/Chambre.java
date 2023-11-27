@@ -16,15 +16,18 @@ import java.util.List;
 @Getter(onMethod = @__(@JsonProperty))
 public class Chambre {
 
-    // On ne génère pas l'id
+
     @Id
     private long numero;
     private float prix;
     private int places;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @Getter(onMethod = @__(@JsonIgnore))
     private Hotel hotel;
-    @OneToMany
+    @Lob
+    @Getter(onMethod = @__(@JsonIgnore))
+    private byte[] image;
+    @OneToMany(cascade = CascadeType.REMOVE)
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
 
