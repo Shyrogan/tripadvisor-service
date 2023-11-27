@@ -28,27 +28,18 @@
     <div class="row">
         <div class="col-md-10">
             <div class="form-container">
-                <form action="/rechercher" method="GET">
+                <form action="/result" method="GET">
                     <label for="dateDepart">Date de départ :</label>
-                    <input class="form-control mb-3" id="dateDepart" name="dateDepart" type="date">
+                    <input class="form-control mb-3" id="dateDepart" name="debut" type="date">
 
                     <label for="dateRetour">Date de retour théorique :</label>
-                    <input class="form-control mb-3" id="dateRetour" name="dateRetour" type="date">
+                    <input class="form-control mb-3" id="dateRetour" name="fin" type="date">
 
                     <label for="prixMax">Prix maximum :</label>
                     <input class="form-control mb-3" id="prixMax" name="prixMax" type="number">
 
                     <label for="prixMin">Prix minimum (optionnel) :</label>
                     <input class="form-control mb-3" id="prixMin" name="prixMin" type="number">
-
-                    <label for="etoileMin">Nombre d'étoiles minimum (optionnel) :</label>
-                    <input class="form-control mb-3" id="etoileMin" name="etoileMin" type="number">
-
-                    <label for="placesMin">Nombre de places minimum (optionnel) :</label>
-                    <input class="form-control mb-3" id="placesMin" name="placesMin" type="number">
-
-                    <label for="ville">Ville (optionnel) :</label>
-                    <input class="form-control mb-3" id="ville" name="ville" type="text">
 
                     <button class="btn btn-primary" type="submit">Rechercher</button>
                 </form>
