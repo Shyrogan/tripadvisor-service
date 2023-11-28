@@ -17,17 +17,21 @@ import static java.lang.String.format;
 public class ReservationService {
 
     public Reservation reserver(Offre offre, Client fillableClient) {
+        ReservationRequest request = ReservationRequest.builder()
+                .offre(offre)
+                .client(fillableClient)
+                .build();
+
+        // Ajout du log pour afficher le contenu de la requête
+        System.out.println("Envoi de la requête de réservation: " + request);
+
         return WebClient.create()
                 .post()
                 .uri(format("%s/reservation", offre.agence().url()))
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(ReservationRequest.builder()
-                        .offre(offre)
-                        .client(fillableClient)
-                        .build()), ReservationRequest.class)
+                .body(Mono.just(request), ReservationRequest.class)
                 .retrieve()
                 .bodyToMono(Reservation.class)
                 .block();
     }
-
 }

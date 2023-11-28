@@ -7,10 +7,8 @@ import lombok.*;
 
 @Entity
 @Table(name = "carteBancaire")
-@Data
-@Builder
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter(onMethod = @__(@JsonProperty))
 public class CarteBancaire {
 
@@ -25,4 +23,11 @@ public class CarteBancaire {
     @Getter(onMethod = @__(@JsonIgnore))
     private Client client;
 
+    public CarteBancaire() {
+    }
+
+    public CarteBancaire(Client client) {
+        this.client = client;
+    }
 }
+

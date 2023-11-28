@@ -1,6 +1,8 @@
 package fr.samyseb.tripadvisor.controllers;
 
+import fr.samyseb.tripadvisor.entities.CarteBancaire;
 import fr.samyseb.tripadvisor.entities.Client;
+import fr.samyseb.tripadvisor.pojos.Offre;
 import fr.samyseb.tripadvisor.repositories.AgenceRepository;
 import fr.samyseb.tripadvisor.repositories.ChambreRepository;
 import fr.samyseb.tripadvisor.repositories.HotelRepository;
@@ -11,9 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -73,23 +73,47 @@ public class TripadvisorController {
         var agence = agenceRepository.findById(agenceId).orElseThrow(IllegalArgumentException::new);
         var hotel = hotelRepository.findById(hotelId).orElseThrow(IllegalArgumentException::new);
         var chambre = chambreRepository.findChambreByNumeroAndHotel_Id(chambreId, hotelId).orElseThrow(IllegalArgumentException::new);
-        var client = new Client();
 
-        Runnable r = () -> {
-            System.out.println(client);
-            /** reservationService.reserver(Offre.builder()
-             .prixSejour(prixSejour)
-             .agence(agence)
-             .chambre(chambre)
-             .hotel(hotel)
-             .debut(debut)
-             .fin(fin).build(), client)**/
-        };
+        Client client = new Client();
 
+        model.addAttribute("agenceId", agenceId);
+        model.addAttribute("hotelId", hotelId);
+        model.addAttribute("chambreId", chambreId);
+        model.addAttribute("debut", debut);
+        model.addAttribute("fin", fin);
+        model.addAttribute("prixSejour", prixSejour);
         model.addAttribute("client", client);
-        model.addAttribute("reserver", r);
 
         return "reservation";
+    }
+
+    @PostMapping("/submitReservation")
+    @Transactional
+    public String submitReservation(@ModelAttribute Client client,
+                                    @RequestParam UUID agenceId,
+                                    @RequestParam UUID hotelId,
+                                    @RequestParam Integer chambreId,
+                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate debut,
+                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fin,
+                                    @RequestParam Float prixSejour) {
+        var agence = agenceRepository.findById(agenceId).orElseThrow(IllegalArgumentException::new);
+        var hotel = hotelRepository.findById(hotelId).orElseThrow(IllegalArgumentException::new);
+        var chambre = chambreRepository.findChambreByNumeroAndHotel_Id(chambreId, hotelId).orElseThrow(IllegalArgumentException::new);
+
+        System.out.println("Client reçu: " + client.nom() + client.prenom() + client.carteBancaire().numero());
+
+        Offre offre = Offre.builder()
+                .prixSejour(prixSejour)
+                .agence(agence)
+                .chambre(chambre)
+                .hotel(hotel)
+                .debut(debut)
+                .fin(fin)
+                .build();
+
+        reservationService.reserver(offre, client);
+
+        return "index";
     }
 
 }

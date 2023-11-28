@@ -10,10 +10,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "client")
-@Data
-@Builder
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter(onMethod = @__(@JsonProperty))
 public class Client {
 
@@ -28,4 +26,10 @@ public class Client {
     @OneToOne(cascade = CascadeType.ALL)
     private CarteBancaire carteBancaire;
 
+    public Client() {
+        carteBancaire = new CarteBancaire(this);
+
+    }
 }
+
+
