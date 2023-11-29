@@ -2,6 +2,7 @@ package fr.samyseb.tripadvisor.controllers;
 
 import fr.samyseb.tripadvisor.entities.CarteBancaire;
 import fr.samyseb.tripadvisor.entities.Client;
+import fr.samyseb.tripadvisor.entities.Reservation;
 import fr.samyseb.tripadvisor.pojos.InfoClient;
 import fr.samyseb.tripadvisor.pojos.Offre;
 import fr.samyseb.tripadvisor.repositories.AgenceRepository;
@@ -97,7 +98,8 @@ public class TripadvisorController {
                                     @RequestParam Integer chambreId,
                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate debut,
                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fin,
-                                    @RequestParam Float prixSejour) {
+                                    @RequestParam Float prixSejour,
+                                    Model model) {
 
         var agence = agenceRepository.findById(agenceId).orElseThrow(IllegalArgumentException::new);
         var hotel = hotelRepository.findById(hotelId).orElseThrow(IllegalArgumentException::new);
@@ -130,9 +132,10 @@ public class TripadvisorController {
                 .fin(fin)
                 .build();
 
-        reservationService.reserver(offre, client);
+        Reservation reservation = reservationService.reserver(offre, client);
 
-        return "index";
+        model.addAttribute("reservation", reservation);
+        return "confirm";
     }
 
 }
