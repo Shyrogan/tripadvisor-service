@@ -27,6 +27,7 @@ public class Agence {
     @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter(onMethod = @__(@JsonIgnore))
     @JsonIgnore
+    @ToString.Exclude
     private List<Reservation> reservations;
     @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter(onMethod = @__(@JsonIgnore))

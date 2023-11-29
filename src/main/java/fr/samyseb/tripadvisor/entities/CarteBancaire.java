@@ -7,8 +7,10 @@ import lombok.*;
 
 @Entity
 @Table(name = "carteBancaire")
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter(onMethod = @__(@JsonProperty))
 public class CarteBancaire {
 
@@ -22,12 +24,5 @@ public class CarteBancaire {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter(onMethod = @__(@JsonIgnore))
     private Client client;
-
-    public CarteBancaire() {
-    }
-
-    public CarteBancaire(Client client) {
-        this.client = client;
-    }
 }
 

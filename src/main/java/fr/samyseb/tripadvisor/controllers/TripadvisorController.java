@@ -2,6 +2,7 @@ package fr.samyseb.tripadvisor.controllers;
 
 import fr.samyseb.tripadvisor.entities.CarteBancaire;
 import fr.samyseb.tripadvisor.entities.Client;
+import fr.samyseb.tripadvisor.pojos.InfoClient;
 import fr.samyseb.tripadvisor.pojos.Offre;
 import fr.samyseb.tripadvisor.repositories.AgenceRepository;
 import fr.samyseb.tripadvisor.repositories.ChambreRepository;
@@ -74,7 +75,7 @@ public class TripadvisorController {
         var hotel = hotelRepository.findById(hotelId).orElseThrow(IllegalArgumentException::new);
         var chambre = chambreRepository.findChambreByNumeroAndHotel_Id(chambreId, hotelId).orElseThrow(IllegalArgumentException::new);
 
-        Client client = new Client();
+       InfoClient infoClient = new InfoClient();
 
         model.addAttribute("agenceId", agenceId);
         model.addAttribute("hotelId", hotelId);
@@ -82,25 +83,43 @@ public class TripadvisorController {
         model.addAttribute("debut", debut);
         model.addAttribute("fin", fin);
         model.addAttribute("prixSejour", prixSejour);
-        model.addAttribute("client", client);
+        model.addAttribute("infoClient", infoClient);
+
 
         return "reservation";
     }
 
     @PostMapping("/submitReservation")
     @Transactional
-    public String submitReservation(@ModelAttribute Client client,
+    public String submitReservation(@ModelAttribute InfoClient infoclient,
                                     @RequestParam UUID agenceId,
                                     @RequestParam UUID hotelId,
                                     @RequestParam Integer chambreId,
                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate debut,
                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fin,
                                     @RequestParam Float prixSejour) {
+
         var agence = agenceRepository.findById(agenceId).orElseThrow(IllegalArgumentException::new);
         var hotel = hotelRepository.findById(hotelId).orElseThrow(IllegalArgumentException::new);
         var chambre = chambreRepository.findChambreByNumeroAndHotel_Id(chambreId, hotelId).orElseThrow(IllegalArgumentException::new);
 
-        System.out.println("Client reçu: " + client.nom() + client.prenom() + client.carteBancaire().numero());
+        System.out.println("info reçu: " + infoclient.getNom() + infoclient.getPrenom() + infoclient.getNumero() +"crpyto: "+ infoclient.getCryptogramme());
+
+        CarteBancaire cb = CarteBancaire.builder()
+                        .numero(infoclient.getNumero())
+                        .annee(infoclient.getAnnee())
+                        .mois(infoclient.getMois())
+                        .cryptogramme(infoclient.getCryptogramme())
+                        .build();
+
+        Client client = Client.builder()
+                .nom(infoclient.getNom())
+                .prenom(infoclient.getPrenom())
+                .build();
+
+        client.carteBancaire(cb);
+
+
 
         Offre offre = Offre.builder()
                 .prixSejour(prixSejour)
