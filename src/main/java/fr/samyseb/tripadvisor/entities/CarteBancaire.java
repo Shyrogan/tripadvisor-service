@@ -24,5 +24,5 @@ public class CarteBancaire {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter(onMethod = @__(@JsonIgnore))
     private Client client;
-
 }
+
