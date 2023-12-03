@@ -41,11 +41,22 @@
                     <label for="prixMin">Prix minimum (optionnel) :</label>
                     <input class="form-control mb-3" id="prixMin" name="prixMin" type="number">
 
+                    <label for="etoilesMin">Nombre d'étoiles minimal :</label>
+                    <input class="form-control mb-3" id="etoilesMin" name="etoilesMin" type="range" min="0" max="5" value="0" oninput="etoilesMinValue.value = etoilesMin.value">
+                    <output id="etoilesMinValue">0</output>
+
                     <button class="btn btn-primary" type="submit">Rechercher</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Script pour afficher la valeur du slider
+    var etoilesMin = document.getElementById('etoilesMin');
+    var etoilesMinValue = document.getElementById('etoilesMinValue');
+    etoilesMinValue.value = etoilesMin.value;
+</script>
 </body>
 </html>
