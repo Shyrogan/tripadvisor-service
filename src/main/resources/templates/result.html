@@ -21,6 +21,12 @@
             top: 0;
             left: 0;
         }
+
+        .highlight {
+            font-weight: bold; /* Texte en gras */
+            color: #0056b3; /* Couleur de texte bleue */
+            text-align: center; /* Centrer le texte */
+        }
     </style>
 </head>
 <body>
@@ -37,7 +43,7 @@
                         <th scope="col">Chambre</th>
                         <th scope="col">Hôtel</th>
                         <th scope="col">Agence</th>
-                        <th scope="col">Prix/nuit</th>
+                        <th scope="col" class="highlight">Prix/nuit</th>
                         <th scope="col">Prix</th>
                         <th scope="col">Date de début</th>
                         <th scope="col">Date de fin</th>
@@ -54,7 +60,7 @@
                         <td th:text="${result.chambre.numero}"></td>
                         <td th:text="${result.hotel.nom}"></td>
                         <td th:text="${result.agence.nom}"></td>
-                        <td th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(result.debut, result.fin) == 0 ? result.prixSejour : (result.prixSejour / T(java.time.temporal.ChronoUnit).DAYS.between(result.debut, result.fin))}"></td>
+                        <td class="highlight" th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(result.debut, result.fin) == 0 ? result.prixSejour : (result.prixSejour / T(java.time.temporal.ChronoUnit).DAYS.between(result.debut, result.fin))}"></td>
                         <td th:text="${result.prixSejour}"></td>
                         <td th:text="${result.debut}"></td>
                         <td th:text="${result.fin}"></td>
