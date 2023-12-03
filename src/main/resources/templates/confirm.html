@@ -56,7 +56,9 @@
         <p><strong>Date de début:</strong> <span th:text="${reservation.debut}"></span></p>
         <p><strong>Date de fin:</strong> <span th:text="${reservation.fin}"></span></p>
         <div class="image-wrapper">
-            <img th:src="@{${reservation.hotel.url} + '/chambre/img/' + ${reservation.chambre.numero}}" alt="Photo de la chambre"/>
+            <a th:href="@{${reservation.hotel.url} + '/chambre/img/' + ${reservation.chambre.numero}}">
+                <img th:src="@{${reservation.hotel.url} + '/chambre/img/' + ${reservation.chambre.numero}}"/>
+            </a>
         </div>
         <p><strong>Nom de l'agence:</strong> <span th:text="${reservation.agence.nom}"></span></p>
     </div>
