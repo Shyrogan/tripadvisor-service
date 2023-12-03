@@ -24,13 +24,14 @@ public class Agence {
     private String nom;
     private String motDePasse;
     private URL url;
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "agence")
     @Getter(onMethod = @__(@JsonIgnore))
     @JsonIgnore
     @ToString.Exclude
     private List<Reservation> reservations;
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "agence")
     @Getter(onMethod = @__(@JsonIgnore))
+    @ToString.Exclude
     private List<Partenariat> partenariats;
 
 }
