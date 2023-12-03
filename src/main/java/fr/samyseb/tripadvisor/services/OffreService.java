@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -19,7 +20,8 @@ public class OffreService {
     private final AgenceRepository agenceRepository;
 
     public List<Offre> create(LocalDate debut, LocalDate fin, Float prixMin, Float prixMax, Integer etoilesMin) {
-        return StreamSupport.stream(agenceRepository.findAll().spliterator(), true)
+        // Récupérer les offres
+        List<Offre> offres = StreamSupport.stream(agenceRepository.findAll().spliterator(), true)
                 .map(agence -> WebClient.create()
                         .get()
                         .uri(b -> b.scheme(agence.url().getProtocol())
@@ -37,14 +39,35 @@ public class OffreService {
                         .block())
                 .filter(Objects::nonNull)
                 .flatMap(Arrays::stream)
-                .map(offre -> {
-                    long nbNuits = ChronoUnit.DAYS.between(debut, fin);
-                    float prixParNuit = offre.prixSejour() / nbNuits;
-                    return new AbstractMap.SimpleEntry<>(offre, prixParNuit);
+                .collect(Collectors.toList());
+
+        // Regrouper les offres par chambre d'hôtel
+        Map<String, List<Offre>> groupedOffres = offres.stream()
+                .collect(Collectors.groupingBy(offre -> offre.hotel().id() + "-" + offre.chambre().numero()));
+
+        // Trouver les offres les moins chères pour chaque groupe
+        List<Offre> offresMoinsCheres = groupedOffres.values().stream()
+                .flatMap(listeOffres -> {
+                    Offre offreMoinsChere = listeOffres.stream()
+                            .min(Comparator.comparing(Offre::prixSejour))
+                            .orElse(null);
+
+                    if (offreMoinsChere == null) {
+                        return Stream.empty();
+                    }
+
+                    float prixMinimum = offreMoinsChere.prixSejour();
+                    return listeOffres.stream()
+                            .filter(offre -> offre.prixSejour() == prixMinimum);
                 })
-                .sorted(Comparator.comparing(Map.Entry::getValue))
-                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        // Trier les offres finales par prix par nuit
+        return offresMoinsCheres.stream()
+                .sorted(Comparator.comparing(offre -> {
+                    long nbNuits = ChronoUnit.DAYS.between(debut, fin);
+                    return offre.prixSejour() / nbNuits;
+                }))
                 .collect(Collectors.toList());
     }
-
 }
