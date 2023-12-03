@@ -25,6 +25,7 @@ public class Chambre {
     private int places;
     @ManyToOne
     @Getter(onMethod = @__(@JsonIgnore))
+    @ToString.Exclude
     private Hotel hotel;
     @Lob
     @Getter(onMethod = @__(@JsonIgnore))
