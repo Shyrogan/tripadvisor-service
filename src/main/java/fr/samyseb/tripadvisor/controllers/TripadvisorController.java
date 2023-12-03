@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -58,8 +59,12 @@ public class TripadvisorController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fin,
             @RequestParam(required = false) Float prixMin,
             @RequestParam(required = false) Float prixMax,
+            @RequestParam(required = false) Integer etoilesMin,
             Model model) {
-        model.addAttribute("offres", offreService.create(debut, fin, prixMin, prixMax));
+        List<Offre> offres =  offreService.create(debut, fin, prixMin, prixMax,etoilesMin);
+        model.addAttribute("offres",offres);
+
+
         return "result";
     }
 
@@ -72,9 +77,6 @@ public class TripadvisorController {
                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fin,
                               @RequestParam Float prixSejour,
                               Model model) {
-        var agence = agenceRepository.findById(agenceId).orElseThrow(IllegalArgumentException::new);
-        var hotel = hotelRepository.findById(hotelId).orElseThrow(IllegalArgumentException::new);
-        var chambre = chambreRepository.findChambreByNumeroAndHotel_Id(chambreId, hotelId).orElseThrow(IllegalArgumentException::new);
 
        InfoClient infoClient = new InfoClient();
 
@@ -104,6 +106,7 @@ public class TripadvisorController {
         var agence = agenceRepository.findById(agenceId).orElseThrow(IllegalArgumentException::new);
         var hotel = hotelRepository.findById(hotelId).orElseThrow(IllegalArgumentException::new);
         var chambre = chambreRepository.findChambreByNumeroAndHotel_Id(chambreId, hotelId).orElseThrow(IllegalArgumentException::new);
+
 
         System.out.println("info reçu: " + infoclient.getNom() + infoclient.getPrenom() + infoclient.getNumero() +"crpyto: "+ infoclient.getCryptogramme());
 
