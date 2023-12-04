@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "chambre")
@@ -16,18 +17,20 @@ import java.util.List;
 @Getter(onMethod = @__(@JsonProperty))
 public class Chambre {
 
-
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private long numero;
     private float prix;
     private int places;
     @ManyToOne
     @Getter(onMethod = @__(@JsonIgnore))
+    @ToString.Exclude
     private Hotel hotel;
     @Lob
     @Getter(onMethod = @__(@JsonIgnore))
     private byte[] image;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     @Getter(onMethod = @__(@JsonIgnore))
     private List<Reservation> reservations;
 

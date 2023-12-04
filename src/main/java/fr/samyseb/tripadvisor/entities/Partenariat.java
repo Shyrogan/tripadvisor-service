@@ -20,6 +20,7 @@ public class Partenariat {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @ManyToOne
+    @ToString.Exclude
     private Hotel hotel;
     @ManyToOne
     @JsonIgnore

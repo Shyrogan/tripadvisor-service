@@ -21,8 +21,8 @@ public class CarteBancaire {
     private int annee;
     @Column(length = 3)
     private String cryptogramme;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @Getter(onMethod = @__(@JsonIgnore))
     private Client client;
-}
 
+}
