@@ -61,8 +61,8 @@ public class TripadvisorController {
             @RequestParam(required = false) Float prixMax,
             @RequestParam(required = false) Integer etoilesMin,
             Model model) {
-        List<Offre> offres =  offreService.create(debut, fin, prixMin, prixMax,etoilesMin);
-        model.addAttribute("offres",offres);
+        List<Offre> offres = offreService.create(debut, fin, prixMin, prixMax, etoilesMin);
+        model.addAttribute("offres", offres);
 
 
         return "result";
@@ -78,7 +78,7 @@ public class TripadvisorController {
                               @RequestParam Float prixSejour,
                               Model model) {
 
-       InfoClient infoClient = new InfoClient();
+        InfoClient infoClient = new InfoClient();
 
         model.addAttribute("agenceId", agenceId);
         model.addAttribute("hotelId", hotelId);
@@ -107,15 +107,12 @@ public class TripadvisorController {
         var hotel = hotelRepository.findById(hotelId).orElseThrow(IllegalArgumentException::new);
         var chambre = chambreRepository.findChambreByNumeroAndHotel_Id(chambreId, hotelId).orElseThrow(IllegalArgumentException::new);
 
-
-        System.out.println("info reçu: " + infoclient.getNom() + infoclient.getPrenom() + infoclient.getNumero() +"crpyto: "+ infoclient.getCryptogramme());
-
         CarteBancaire cb = CarteBancaire.builder()
-                        .numero(infoclient.getNumero())
-                        .annee(infoclient.getAnnee())
-                        .mois(infoclient.getMois())
-                        .cryptogramme(infoclient.getCryptogramme())
-                        .build();
+                .numero(infoclient.getNumero())
+                .annee(infoclient.getAnnee())
+                .mois(infoclient.getMois())
+                .cryptogramme(infoclient.getCryptogramme())
+                .build();
 
         Client client = Client.builder()
                 .nom(infoclient.getNom())
@@ -123,9 +120,7 @@ public class TripadvisorController {
                 .build();
 
         client.carteBancaire(cb);
-
-
-
+        
         Offre offre = Offre.builder()
                 .prixSejour(prixSejour)
                 .agence(agence)
