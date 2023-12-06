@@ -23,15 +23,32 @@
         }
 
         .highlight {
-            font-weight: bold; /* Texte en gras */
-            color: #0056b3; /* Couleur de texte bleue */
-            text-align: center; /* Centrer le texte */
+            font-weight: bold;
+            color: #0056b3;
+            text-align: center;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .center-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .message-container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
-<div class="container mt-4" th:if="${offres != null}">
+<div class="container mt-4" th:unless="${offres == null || offres.isEmpty()}">
     <div class="row">
         <div class="col">
             <div class="result-container">
@@ -77,5 +94,18 @@
         </div>
     </div>
 </div>
+
+<div class="container center-div" th:if="${offres == null || offres.isEmpty()}">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="message-container center-text">
+                <h2>Aucune offre n'a été trouvée pour les critères spécifiés.</h2>
+                <a href="/recherche" class="btn btn-primary mt-3">Retourner à la recherche</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
