@@ -28,12 +28,12 @@
     <div class="row">
         <div class="col-md-10">
             <div class="form-container">
-                <form action="/result" method="GET">
+                <form id="rechercheForm" action="/result" method="GET">
                     <label for="dateDepart">Date de départ :</label>
-                    <input class="form-control mb-3" id="dateDepart" name="debut" type="date">
+                    <input class="form-control mb-3" id="dateDepart" name="debut" type="date" required>
 
-                    <label for="dateRetour">Date de retour théorique :</label>
-                    <input class="form-control mb-3" id="dateRetour" name="fin" type="date">
+                    <label for="dateRetour">Date de retour :</label>
+                    <input class="form-control mb-3" id="dateRetour" name="fin" type="date" required>
 
                     <label for="prixMax">Prix maximum :</label>
                     <input class="form-control mb-3" id="prixMax" name="prixMax" type="number">
@@ -53,6 +53,16 @@
 </div>
 
 <script>
+    document.getElementById('rechercheForm').addEventListener('submit', function(event) {
+        var dateDepart = document.getElementById('dateDepart').value;
+        var dateRetour = document.getElementById('dateRetour').value;
+
+        if (!dateDepart || !dateRetour) {
+            event.preventDefault(); // Empêche l'envoi du formulaire
+            alert('Veuillez remplir les champs de date de départ et de date de retour.');
+        }
+    });
+
     // Script pour afficher la valeur du slider
     var etoilesMin = document.getElementById('etoilesMin');
     var etoilesMinValue = document.getElementById('etoilesMinValue');

@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-center">Paiement sécurisé</h2>
-                    <form method="post" th:action="@{/submitReservation(agenceId=${agenceId}, hotelId=${hotelId}, chambreId=${chambreId}, debut=${debut}, fin=${fin}, prixSejour=${prixSejour})}">
+                    <form id="paiementForm" method="post" th:action="@{/submitReservation(agenceId=${agenceId}, hotelId=${hotelId}, chambreId=${chambreId}, debut=${debut}, fin=${fin}, prixSejour=${prixSejour})}">
                         <div class="mb-3">
                             <label class="form-label" for="nom">Nom :</label>
                             <input class="form-control" id="nom" name="nom" required type="text">
@@ -25,23 +25,23 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="numeroCarte">Numéro de carte bleue :</label>
-                            <input class="form-control" id="numeroCarte" name="numero" required type="text">
+                            <input class="form-control" id="numeroCarte" name="numero" required type="text" pattern="\d{16}" title="un numero valide (16 chiffres).">
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" for="moisCarte">Mois de validité :</label>
                                 <input class="form-control" id="moisCarte" name="mois" placeholder="MM" required
-                                       type="number">
+                                       type="number" min="1" max="12" maxlength="2">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" for="anneeCarte">Année de validité :</label>
                                 <input class="form-control" id="anneeCarte" name="annee" placeholder="YYYY"
-                                       required type="number">
+                                       required type="number" min="2023" max="2099" maxlength="4">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="cryptogramme">Cryptogramme :</label>
-                            <input class="form-control" id="cryptogramme" name="cryptogramme" required type="text">
+                            <input class="form-control" id="cryptogramme" name="cryptogramme" required type="text" maxlength="3">
                         </div>
                         <div class="text-center">
                             <button class="btn btn-primary" type="submit">Payer</button>
@@ -52,6 +52,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('paiementForm').addEventListener('submit', function(event) {
+        var mois = document.getElementById('moisCarte').value;
+        var annee = document.getElementById('anneeCarte').value;
+        var cryptogramme = document.getElementById('cryptogramme').value;
+
+        if (mois.length !== 2 || annee.length !== 4 || cryptogramme.length !== 3) {
+            event.preventDefault();
+            alert("Veuillez remplir correctement les champs de dates et de cryptogramme (MM pour le mois, YYYY pour l'année et 3 chiffres pour le cryptogramme).");
+        }
+    });
+</script>
 
 <!-- Liens vers les fichiers JavaScript de Bootstrap (si nécessaire) -->
 </body>
